@@ -3,9 +3,13 @@ import ContactCard from "../components/ContactCard";
 
 const ContactList = (props) => {
     // Rendering contact list
+
+    const deleteContactHandler = (id) =>{
+       props.getContactId(id);
+    }
     const renderContactList = props.contacts.map((contact) => {
         return (
-            <ContactCard contact={contact} key={contact.id} />
+        <ContactCard contact={contact} clickHandler={deleteContactHandler}  key={contact.id} />
         );
     });
 
