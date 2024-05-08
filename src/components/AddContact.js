@@ -46,7 +46,7 @@ class AddContact extends React.Component {
                             }
                         />
                     </div>
-                    <button className="ui button blue" type="submit">
+                    <button className="ui button green" type="submit">
                         Add
                     </button>
                 </form>
