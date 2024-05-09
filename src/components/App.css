@@ -24,9 +24,36 @@
   color: white;
 }
 
-.App-link {
+.App-Link {
   color: #61dafb;
 }
+
+.ui.celled.list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  position: relative;
+  padding-right: 55px;
+}
+
+.image {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.image img {
+  width: 100%; 
+
+  /* Make image fill container width */
+}
+.description {
+  font-size: 1rem;
+  color: #555;
+}
+
 
 @keyframes App-logo-spin {
   from {

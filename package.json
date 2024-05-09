@@ -10,6 +10,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5",
     "util": "^0.12.5",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
