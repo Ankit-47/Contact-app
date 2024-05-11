@@ -1,0 +1,32 @@
+.contact-card {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    justify-content: space-between;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    color: blue;
+    font-size: 20px;
+}
+
+.icon-edit {
+    margin-left: 10px;
+    color: blue; 
+    font-size: 24px;
+}
+
+.icon-delete {
+    color: red;
+    margin-bottom: 10px;
+    
+}
+
+.content {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
