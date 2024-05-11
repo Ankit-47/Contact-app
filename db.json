@@ -1,0 +1,39 @@
+{
+  "contacts": [
+    {
+      "id": "65c79f72-6099-47ce-aeb8-4f043de13467",
+      "name": "ak",
+      "email": "ankit.221610@ncit.edu.np"
+    },
+    {
+      "id": "57950c85-170b-4d4b-941a-3c18bf171e81",
+      "name": "akhfauo",
+      "email": "9842139832"
+    },
+    {
+      "id": "57040a3b-faf4-4815-8614-91fb112dca14",
+      "name": "ankit",
+      "email": "ankit.221610@ncit.edu.np"
+    },
+    {
+      "id": "ff4faba5-3bbf-4bc2-bbbc-353e635cf554",
+      "name": "helo",
+      "email": "ok@gmail.com"
+    },
+    {
+      "id": "b7c6f1cd-8937-49c7-a0af-31e6b93fb9d0",
+      "name": "ak",
+      "email": "ak@gmail.com"
+    },
+    {
+      "id": "a7b9f0fd-f7e2-46a0-81a0-31296a269f99",
+      "name": "ak",
+      "email": "ok@gmail.com"
+    },
+    {
+      "id": "5ddb4fa0-ea78-48d6-8290-3c7dfcd71801",
+      "name": "helo",
+      "email": "ankit.221610@ncit.edu.np"
+    }
+  ]
+}
