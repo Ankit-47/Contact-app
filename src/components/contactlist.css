@@ -1,0 +1,15 @@
+
+.ui.main.contact {
+    margin-top:20px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+  }
+
+  .list-container {
+    flex-grow: 1; }
+  
+  .button-container {
+    margin-top: 20px; 
+  }
+  
