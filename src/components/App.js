@@ -8,11 +8,12 @@ import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 import EditContact from "./EditContact";
+import contact from "../api/contact";
 
 function App() {
   const [contacts, setContacts] = React.useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [SearchResults,setSearchResults]
+  const [SearchResults,setSearchResults] = useState([]);
   // const LOCAL_STORAGE_KEY = "contacts";
 
 //retrieve contacts
@@ -63,10 +64,19 @@ const retrieveContacts =async () =>{
     setContacts(newContactList);
   };
 
-  const searchHandler = ()=>{
-      setSearchTerm(searchTerm)
-
-  };
+  const searchHandler = () => {
+    if (searchTerm !== "") {
+        const newContactList = contacts.filter((contact) =>
+            Object.values(contact).some(
+                (value) =>
+                    value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+        setSearchResults(newContactList);
+    } else {
+        setSearchResults(contacts);
+    }
+};
 
   React.useEffect(() => {
     // const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
@@ -93,14 +103,16 @@ const retrieveContacts =async () =>{
       <Router>
         <Header />
         <Routes>
-          <Route
-            path="/"
-            element={<ContactList contacts={contacts}
-             getContactId={removeContactHandler} 
-             term={searchTerm} 
-             searchKeyword={searchHandler}
-             />}
-          />
+         <Route
+    path="/"
+    element={<ContactList
+        contacts={SearchResults}
+        getContactId={removeContactHandler}
+        term={searchTerm}
+        searchKeyword={searchHandler}
+    />}
+/>
+
           <Route
             path="/add"
             element={<AddContact 
