@@ -12,4 +12,20 @@
   .button-container {
     margin-top: 20px; 
   }
+  .ui.search-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .ui.search {
+    width: 200px;
+    margin-top: 50px;
+    padding-left: 280px; /* Adjust width as needed */
+  }
+  
+
+
+  
+  
   

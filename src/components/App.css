@@ -31,7 +31,7 @@
 .ui.celled.list {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 90px;
   position: relative;
   padding-right: 55px;
 }

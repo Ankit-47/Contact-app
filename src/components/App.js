@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { v4 as uuid } from 'uuid';
@@ -7,10 +7,13 @@ import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
+import EditContact from "./EditContact";
 
 function App() {
   const [contacts, setContacts] = React.useState([]);
-  const LOCAL_STORAGE_KEY = "contacts";
+  const [searchTerm, setSearchTerm] = useState("");
+  const [SearchResults,setSearchResults]
+  // const LOCAL_STORAGE_KEY = "contacts";
 
 //retrieve contacts
 
@@ -29,6 +32,28 @@ const retrieveContacts =async () =>{
     setContacts([...contacts,  response.data]);
   };
 
+  const updateContactHandler = async (updatedContact) => {
+    try {
+      const response = await api.put(`/contacts/${updatedContact.id}`, updatedContact);
+      const updatedContactData = response.data;
+  
+      // Update the contact in the state
+      setContacts((prevContacts) => {
+        return prevContacts.map((contact) => {
+          if (contact.id === updatedContactData.id) {
+            return { ...contact, ...updatedContactData };
+          }
+          return contact;
+        });
+      });
+    } catch (error) {
+      console.error("Error updating contact:", error);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+  
+  
+
   const removeContactHandler = async (id) => {
     await api.delete(`/contacts/${id}`);
     const newContactList = contacts.filter((contact) => {
@@ -36,6 +61,11 @@ const retrieveContacts =async () =>{
     });
 
     setContacts(newContactList);
+  };
+
+  const searchHandler = ()=>{
+      setSearchTerm(searchTerm)
+
   };
 
   React.useEffect(() => {
@@ -50,9 +80,9 @@ const retrieveContacts =async () =>{
     getAllContacts();
   }, []);
 
-  React.useEffect(() => {
-    //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  // React.useEffect(() => {
+  //   //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  // }, [contacts]);
 
   const navigateBack = () => {
     window.location.href = "/";
@@ -65,13 +95,23 @@ const retrieveContacts =async () =>{
         <Routes>
           <Route
             path="/"
-            element={<ContactList contacts={contacts} getContactId={removeContactHandler} />}
+            element={<ContactList contacts={contacts}
+             getContactId={removeContactHandler} 
+             term={searchTerm} 
+             searchKeyword={searchHandler}
+             />}
           />
           <Route
             path="/add"
-            element={<AddContact addContactHandler={addContactHandler} navigateBack={navigateBack} />}
+            element={<AddContact 
+              addContactHandler={addContactHandler} 
+            navigateBack={navigateBack} />}
           />
-
+         <Route
+    path="/edit"
+    element={<EditContact updateContactHandler={updateContactHandler} 
+    navigateBack={navigateBack} />}
+/>
           <Route path="/contact/:id" Component={ContactDetail} />
         </Routes>
       </Router>

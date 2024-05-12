@@ -1,33 +1,47 @@
 import React from "react";
-import './App.css';
 
 class EditContact extends React.Component {
- 
-    update= (e) => {
+    constructor(props) {
+        super(props);
+      
+        const { id, name, email } = props.location?.state || {};
+      
+        if (!id || !name || !email) {
+          // Handle missing props here (e.g., show error message, redirect)
+          console.error("Missing contact information in props");
+        }
+      
+        this.state = {
+          id,
+          name: name ?? "",
+          email: email ?? "",
+        };
+      }
+      update = (e) => {
         e.preventDefault();
+        const { id, name, email } = this.state;
+    
         // Trim whitespace from input values
-        const trimmedName = this.state.name.trim();
-        const trimmedEmail = this.state.email.trim();
-
+        const trimmedName = name.trim();
+        const trimmedEmail = email.trim();
+    
         if (trimmedName === "" || trimmedEmail === "") {
             alert("All the fields are mandatory!");
             return;
         }
-        
-        // Pass trimmed values to the addContactHandler
-        this.props.addContactHandler({ name: trimmedName, email: trimmedEmail });
-        
-        // Clear input fields after submission
-        this.setState({ name: "", email: "" });
-
+    
+        // Pass the correct id along with the updated contact details
+        this.props.updateContactHandler({ id, name: trimmedName, email: trimmedEmail });
+    
         // Navigate back to the home route
         this.props.navigateBack();
     };
+    
 
     render() {
         return (
             <div className="ui main">
-                <h2>Add Contact</h2>
+                <h2>Update Contact</h2>
                 <form className="ui form" onSubmit={this.update}>
                     <div className="field">
                         <label>Name</label>
@@ -50,7 +64,7 @@ class EditContact extends React.Component {
                         />
                     </div>
                     <button className="ui button ok green" type="submit">
-                        Add
+                        Update
                     </button>
                 </form>
             </div>

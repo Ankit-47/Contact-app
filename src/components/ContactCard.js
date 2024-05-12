@@ -19,9 +19,12 @@ const ContactCard = (props) => {
             </div>
             <div className="icon-container">
                 <Link to={{ pathname: `/edit`, state: { contact: props.contact } }}>
-                    <i className="edit alternate outline icon icon-edit" onClick={() => props.clickHandler(id)}></i>
+                    <i className="edit alternate outline icon icon-edit" 
+                    onClick={() => props.clickHandler(id)}></i>
                 </Link>
-                <i className="trash alternate outline icon icon-delete" onClick={() => props.clickHandler(id)}></i>
+                <i className="trash alternate outline icon icon-delete" 
+                
+                onClick={() => props.clickHandler(id)}></i>
             </div>
         </div>
     );
