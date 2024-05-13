@@ -8,36 +8,34 @@ import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 import EditContact from "./EditContact";
-import contact from "../api/contact";
+
 
 function App() {
   const [contacts, setContacts] = React.useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [SearchResults,setSearchResults] = useState([]);
-  // const LOCAL_STORAGE_KEY = "contacts";
+  const [searchTerm] = useState("");
+  const [SearchResults, setSearchResults] = useState([]);
 
-//retrieve contacts
-
-const retrieveContacts =async () =>{
-  const response = await api.get("/contacts");
-  return response.data;
-};
+  // retrieve contacts
+  const retrieveContacts = async () => {
+    const response = await api.get("/contacts");
+    return response.data;
+  };
 
   const addContactHandler = async (contact) => {
-    const request ={
-      id:uuid(),
+    const request = {
+      id: uuid(),
       ...contact
-    }
+    };
 
-    const response = await api.post("/contacts",request)
-    setContacts([...contacts,  response.data]);
+    const response = await api.post("/contacts", request);
+    setContacts([...contacts, response.data]);
   };
 
   const updateContactHandler = async (updatedContact) => {
     try {
       const response = await api.put(`/contacts/${updatedContact.id}`, updatedContact);
       const updatedContactData = response.data;
-  
+
       // Update the contact in the state
       setContacts((prevContacts) => {
         return prevContacts.map((contact) => {
@@ -52,8 +50,6 @@ const retrieveContacts =async () =>{
       // Handle error (e.g., show error message to user)
     }
   };
-  
-  
 
   const removeContactHandler = async (id) => {
     await api.delete(`/contacts/${id}`);
@@ -66,33 +62,23 @@ const retrieveContacts =async () =>{
 
   const searchHandler = () => {
     if (searchTerm !== "") {
-        const newContactList = contacts.filter((contact) =>
-            Object.values(contact).some(
-                (value) =>
-                    value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        );
-        setSearchResults(newContactList);
+      const newContactList = contacts.filter((contact) =>
+        Object.values(contact).join(" ").toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(newContactList);
     } else {
-        setSearchResults(contacts);
+      setSearchResults(contacts);
     }
-};
+  };
 
   React.useEffect(() => {
-    // const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-    // if (retrieveContacts.length > 0) setContacts(retrieveContacts);
-
-    const getAllContacts = async() =>{
+    const getAllContacts = async () => {
       const allContacts = await retrieveContacts();
-      if(allContacts) setContacts(allContacts);
+      if (allContacts) setContacts(allContacts);
     };
 
     getAllContacts();
   }, []);
-
-  // React.useEffect(() => {
-  //   //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  // }, [contacts]);
 
   const navigateBack = () => {
     window.location.href = "/";
@@ -103,32 +89,32 @@ const retrieveContacts =async () =>{
       <Router>
         <Header />
         <Routes>
-         <Route
-    path="/"
-    element={<ContactList
-        contacts={SearchResults}
-        getContactId={removeContactHandler}
-        term={searchTerm}
-        searchKeyword={searchHandler}
-    />}
+        <Route
+  path="/"
+  element={<ContactList
+    contacts={searchTerm ? SearchResults : contacts}
+    getContactId={removeContactHandler}
+    term={searchTerm}
+    searchKeyword={searchHandler}
+  />}
 />
 
           <Route
             path="/add"
-            element={<AddContact 
-              addContactHandler={addContactHandler} 
-            navigateBack={navigateBack} />}
+            element={<AddContact
+              addContactHandler={addContactHandler}
+              navigateBack={navigateBack} />}
           />
-         <Route
-    path="/edit"
-    element={<EditContact updateContactHandler={updateContactHandler} 
-    navigateBack={navigateBack} />}
-/>
+          <Route
+            path="/edit"
+            element={<EditContact updateContactHandler={updateContactHandler}
+              navigateBack={navigateBack} />}
+          />
           <Route path="/contact/:id" Component={ContactDetail} />
         </Routes>
       </Router>
     </div>
   );
-};
+}
 
 export default App;
